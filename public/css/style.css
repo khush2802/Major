@@ -1,0 +1,127 @@
+/* body{
+    background-color: blueviolet;
+} */
+body{
+    /* background-color: pink; */
+    font-family: "Plus Jakarta Sans", serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container{
+    flex: 1;
+}
+.navbar{
+    height:5rem;
+    background-color: white;
+}
+.fa-compass{
+    color: #FFB200;
+    font-size: 2rem;
+}
+.nav-link{
+    color: #222 !important;
+}
+/* .navbar-brand{
+    color: #FBD400;
+    font-size: 2rem;
+} */
+
+.f-info-links a:hover{
+    /* color: #222; */
+    text-decoration: underline;
+}
+.f-info-links{
+    width: 100%;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    color: #222;
+    text-decoration: none;
+    justify-content: center;
+}
+
+
+
+.f-info{
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    align-items: space-evenly;
+}
+.f-info-socials{
+    color: #222831;
+    font-size: 1.2rem;
+    margin-right: 1rem;
+    vertical-align: middle;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 100%; */
+}
+.f-info-socials i{
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+.f-info-brand{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* cards0 */
+.listing-card{
+    border: none !important;
+    margin-bottom: 2rem;
+}
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    margin-bottom: 1rem;
+}
+.card-body{
+    padding: 0 !important;
+}
+.card-text{
+    font-weight: 400 !important
+}
+.listing-link{
+    text-decoration: none !important;
+}
+/* card overlay */
+.card-img-overlay{
+    opacity: 0;
+
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+.add-btn{
+    border: none !important;
+    background-color: #FFB200 !important
+}
+.edit-btn{
+    border: none !important;
+    background-color: #FFB200 !important;
+}
+.show-img{
+    height: 30vh;
+}
+
+.btns{
+    display: flex;
+}
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
+}
+#map { 
+    height: 400px;
+    width: 80vh;
+ }
