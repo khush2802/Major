@@ -2,6 +2,16 @@ if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
 
+// Refuse to start without the required secrets (see config.js and .env.example).
+const { loadConfig } = require("./config.js");
+let config;
+try {
+    config = loadConfig();
+} catch (err) {
+    console.error(`Configuration error: ${err.message}`);
+    process.exit(1);
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -22,7 +32,7 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 // MongoDB Connection
-const dbUrl = process.env.ATLASDB_URL;
+const dbUrl = config.dbUrl;
 
 main().then(() => {
     console.log("Connected to DB");
@@ -46,7 +56,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
-        secret: process.env.SECRET,
+        secret: config.sessionSecret,
     },
     touchAfter: 24 * 3600,  // Only update session once in 24 hours unless modified
 });
@@ -55,15 +65,21 @@ store.on("error", (err) => {
     console.log("ERROR IN SESSION", err);
 });
 
+if (config.isProduction) {
+    app.set("trust proxy", 1);
+}
+
 const sessionOptions = {
     store,
-    secret: process.env.SECRET || "mysecretstr",
+    secret: config.sessionSecret,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,  // no session (or cookie) until there is something to store
     cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,  // 1 week
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+        sameSite: "lax",                // not sent on cross-site form posts (CSRF protection)
+        secure: config.isProduction,    // HTTPS-only cookies in production
     },
 };
 

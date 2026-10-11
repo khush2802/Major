@@ -10,7 +10,7 @@ const upload = multer({ storage });
 //index,create rotes
 router.route("/")
 .get(wrapAsync(listingController.index))
-.post(isLoggedIn,upload.single('listing[image]'),wrapAsync(listingController.createListing));
+.post(isLoggedIn,upload.single('listing[image]'),validateListing,wrapAsync(listingController.createListing));
 
 
 //new route
@@ -20,7 +20,7 @@ router.get("/new",isLoggedIn,listingController.renderNewForm);
 //update,delet,show rotes
 router.route("/:id")
 .get(wrapAsync(listingController.showListing))
-.put(isLoggedIn,isOwner,upload.single('listing[image]') ,wrapAsync(listingController.updateListing))
+.put(isLoggedIn,isOwner,upload.single('listing[image]'),validateListing,wrapAsync(listingController.updateListing))
 .delete(isLoggedIn,isOwner, wrapAsync(listingController.destroyListing));
 
 

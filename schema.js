@@ -1,15 +1,14 @@
 const Joi = require('joi');
 const review = require('./models/review');
+// Only the fields the new/edit forms send. The image comes from the file upload, and
+// owner, reviews and geometry are set by the server, so they are rejected here.
 module.exports.listingSchema = Joi.object({
     listing: Joi.object({
         title:Joi.string().required(),
         description:Joi.string().required(),
+        location:Joi.string().required(),
         country:Joi.string().required(),
         price:Joi.number().required().min(0),
-        // image:Joi.string().allow("",null),
-        image: Joi.object({
-            url: Joi.string().uri().required()
-          }).required()
     }).required(),
 });
 
